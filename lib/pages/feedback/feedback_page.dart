@@ -64,9 +64,11 @@ class _FeedBackState extends State<FeedBack> {
 
               setState(() {});
             },
-            itemBuilder: _buildQuestion,
+            itemBuilder: (context, index) {
+              return _buildQuestion(context, questionsData[index]);
+            },
             itemCount: questionsData.length,
-            scrollDirection: Axis.vertical,
+            scrollDirection: Axis.horizontal,
             controller: pageController,
           ),
         ),
@@ -75,8 +77,7 @@ class _FeedBackState extends State<FeedBack> {
     );
   }
 
-  Widget _buildQuestion(BuildContext context, int index) {
-    final questionData = questionsData[index];
+  Widget _buildQuestion(BuildContext context, Question questionData) {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 30,
@@ -154,6 +155,6 @@ class _FeedBackState extends State<FeedBack> {
       });
     }
     pageController.animateToPage(currentQuestionIndex + 1,
-        curve: Curves.decelerate, duration: const Duration(milliseconds: 300));
+        curve: Curves.easeInOut, duration: const Duration(milliseconds: 700));
   }
 }
