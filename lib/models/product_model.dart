@@ -1,23 +1,26 @@
 class ProductModel {
   String? productName;
   int? price;
-  String? type;
+  String? description;
+  String? imageUrl;
   bool? isAvailable;
   List<String>? materials;
 
   ProductModel({
     this.productName,
     this.price,
-    this.type,
+    this.description,
     this.isAvailable,
     this.materials,
+    this.imageUrl,
   });
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     productName = json['product_name'];
     price = json['price'];
-    type = json['type'];
+    description = json['description'];
     isAvailable = json['is_available'];
+    imageUrl = json['image_url'];
     materials = json['materials'].cast<String>();
   }
 
@@ -25,9 +28,10 @@ class ProductModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['product_name'] = productName;
     data['price'] = price;
-    data['type'] = type;
+    data['description'] = description;
     data['is_available'] = isAvailable;
     data['materials'] = materials;
+    data['image_url'] = imageUrl;
     return data;
   }
 }

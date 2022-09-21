@@ -37,6 +37,7 @@ dependencies:
 
   # A powerful Http client for Dart, which supports Interceptors, Global configuration, FormData, Request Cancellation, File downloading, Timeout etc.
   dio: ^4.0.6
+  flutter_rating_bar: ^4.0.1
 
 
 dev_dependencies:

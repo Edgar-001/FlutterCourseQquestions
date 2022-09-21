@@ -9,7 +9,7 @@ class FeedbackApi {
     this.appDioClient,
   );
 
-  Future<FeedBackModel> getFeedbackData() async {
+  Future<FeedBackModel> getFeedbackData(sort) async {
     FeedBackModel feedbackData;
 
     final result = await appDioClient.get(

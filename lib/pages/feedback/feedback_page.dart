@@ -22,6 +22,7 @@ class _FeedBackState extends State<FeedBack> {
       setState(() {
         feedbackData = data;
         questionsData = data.questions;
+        
       });
     });
 
@@ -29,7 +30,7 @@ class _FeedBackState extends State<FeedBack> {
   }
 
   Future<FeedBackModel> getData() async {
-    return await IndigoAPI().feedback.getFeedbackData();
+    return await IndigoAPI().feedback.getFeedbackData({});
   }
 
   @override
@@ -56,6 +57,7 @@ class _FeedBackState extends State<FeedBack> {
         LinearProgressIndicator(
           value: (currentQuestionIndex + 1) / (questionsData.length),
           color: Colors.red,
+          backgroundColor: Colors.black,
         ),
         Expanded(
           child: PageView.builder(

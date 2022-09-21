@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:indigo/api/indigo_api.dart';
 import 'package:indigo/models/product_model.dart';
+import 'package:indigo/pages/shrine/shrine_page.dart';
 
 import '../../base/routes.dart';
 
@@ -14,6 +17,8 @@ class HomePageWidget extends StatefulWidget {
 class _HomePageWidgetState extends State<HomePageWidget> {
   final GlobalKey<ScaffoldState> _key = GlobalKey(); //
 
+  bool isGrid = true;
+
   @override
   void initState() {
     super.initState();
@@ -22,16 +27,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawerEnableOpenDragGesture: false,
       key: _key,
       floatingActionButton: Builder(
         builder: (context) {
           return FloatingActionButton(
             onPressed: () {
-              Scaffold.of(context).openDrawer();
+              isGrid = !isGrid;
+              setState(() {});
               // _key.currentState!.openDrawer();
             },
-            child: Icon(Icons.menu),
+            child: const Icon(Icons.menu),
           );
         },
       ),
@@ -39,6 +44,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         title: const Text(
           'Home',
         ),
+
         // automaticallyImplyLeading: false,
       ),
       drawer: Drawer(
@@ -58,28 +64,39 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
             ),
             ListTile(
-              title: Text('Home'),
+              title: const Text('Home'),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('Settings'),
+              title: const Text('Settings'),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text(
+              title: const Text(
                 'Feedback',
               ),
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.feedback);
               },
             ),
+            ListTile(
+              title: const Text(
+                'Shrine',
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ShrinePage()));
+              },
+            ),
             const Spacer(),
             ListTile(
-              title: Text('Log Out'),
+              title: const Text('Log Out'),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -87,30 +104,76 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           ],
         ),
       ),
-      body: _buildBody(context),
     );
   }
 
-  Widget _buildBody(BuildContext context) {
-    return FutureBuilder(
-      future: IndigoAPI().products.getProductsData(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final products = snapshot.data as List<ProductModel>;
+//   Widget gridView(BuildContext context) {
+//     return FutureBuilder(
+//       future: IndigoAPI().products.getProductsData(),
+//       builder: (context, snapshot) {
+//         if (snapshot.hasData) {
+//           final products = snapshot.data as List<ProductModel>;
 
-          return ListView.separated(
-            itemBuilder: (context, index) {
-              return Text(products[index].productName ?? '');
-            },
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: products.length,
-          );
-        } else {
-          return const Center(
-            child: Text('No Items'),
-          );
-        }
-      },
-    );
-  }
+//           return GridView(
+//             padding: const EdgeInsets.all(10),
+//             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//                 crossAxisCount: 2,
+//                 childAspectRatio: 1,
+//                 crossAxisSpacing: 5,
+//                 mainAxisSpacing: 5),
+//             children: [
+//               ...products.map<Widget>((final product) {
+//                 return productListItem(product);
+//               }).toList(),
+//             ],
+//           );
+//         } else {
+//           return const Center(
+//             child: Text('No Items'),
+//           );
+//         }
+//       },
+//     );
+//   }
+// }
+
+// Widget listView(BuildContext context) {
+//   return FutureBuilder(
+//     future: IndigoAPI().products.getProductsData(),
+//     builder: (context, snapshot) {
+//       if (snapshot.hasData) {
+//         final products = snapshot.data as List<ProductModel>;
+
+//         return ListView(
+//           padding: const EdgeInsets.all(10),
+//           children: [
+//             ...products.map<Widget>((final product) {
+//               return productListItem(product);
+//             }).toList(),
+//           ],
+//         );
+//       } else {
+//         return const Center(
+//           child: Text('No Items'),
+//         );
+//       }
+//     },
+//   );
+// }
+
+// Widget productListItem(
+//   ProductModel productModel,
+// ) {
+//   return Container(
+//     decoration: BoxDecoration(
+//       image: DecorationImage(
+//         image: NetworkImage(productModel.imageUrl ?? ''),
+//         fit: BoxFit.cover,
+//       ),
+//     ),
+//     child: Text(
+//       productModel.productName ?? '',
+//       style: const TextStyle(color: Colors.amber),
+//     ),
+//   );
 }

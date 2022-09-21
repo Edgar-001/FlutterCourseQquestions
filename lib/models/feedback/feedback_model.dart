@@ -29,14 +29,21 @@ class Question {
   factory Question.fromJson(Map<String, dynamic> json) => Question(
         questionId: json["question_id"],
         questionText: json["question_text"],
-        answers:
-            List<Answer>.from(json["answers"].map((x) => Answer.fromJson(x))),
+        answers: List<Answer>.from(
+          json["answers"].map(
+            (x) => Answer.fromJson(x),
+          ),
+        )..sort((a, b) => a.sortOrder.compareTo(b.sortOrder)),
       );
 
   Map<String, dynamic> toJson() => {
         "question_id": questionId,
         "question_text": questionText,
-        "answers": List<dynamic>.from(answers.map((x) => x.toJson())),
+        "answers": List<dynamic>.from(
+          answers.map(
+            (x) => x.toJson(),
+          ),
+        ),
       };
 }
 
