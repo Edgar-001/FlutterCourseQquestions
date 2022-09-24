@@ -18,19 +18,17 @@ class _DescriptionItemWigetState extends State<DescriptionItemWiget> {
         title: Text(widget.product.productName ?? ''),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(50, 10, 50, 100),
+        child: Expanded(
           child: Column(
             children: [
               Image(
                 image: NetworkImage(widget.product.imageUrl ?? ''),
               ),
-              Text(widget.product.description ?? ''
-              ),
+              Text(widget.product.description ?? ''),
               const Padding(padding: EdgeInsetsDirectional.all(20)),
               Text(
                 ' Prise \$${widget.product.price}.00',
-                  style: TextStyle(fontWeight: FontWeight.w900),
+                style: const TextStyle(fontWeight: FontWeight.w900),
               )
             ],
           ),
